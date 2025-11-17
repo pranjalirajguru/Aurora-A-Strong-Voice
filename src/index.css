@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Aurora Gradient */
+.aurora-bg {
+  background: radial-gradient(
+      circle at center,
+      #E6E6FA 0%,
+      #D9D1F7 25%,
+      #A58FE4 50%,
+      #5A1C8A 75%,
+      #2A004B 100%
+    );
+  background-size: 200% 200%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #1B003F; /* dark text */
+  animation: auroraMove 30s ease-in-out infinite alternate;
+}
+
+/* Animation for smooth gradient flow */
+@keyframes auroraMove {
+  0% {
+    background-position: 30% 40%;
+  }
+  50% {
+    background-position: 70% 60%;
+  }
+  100% {
+    background-position: 40% 80%;
+  }
+}
+
+
