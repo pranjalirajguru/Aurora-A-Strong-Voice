@@ -1,25 +1,27 @@
-# backend/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.routes import auth, user, complaint, lawbot
 
-app = FastAPI(title="Aurora API", version="1.0.0")
+from database import Base, engine
+from auth import router as auth_router
+from lawbot import router as lawbot_router
+from routes.complaint import router as complaint_router
+from therapist import router as therapist_router
 
-origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-]
+
+app = FastAPI(title="Aurora Backend")
+
+# ✅ CREATE ALL TABLES (VERY IMPORTANT)
+Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Register routers
-app.include_router(auth.router)
-app.include_router(user.router)
-app.include_router(complaint.router)
-app.include_router(lawbot.router)
+app.include_router(auth_router)
+app.include_router(lawbot_router)
+app.include_router(complaint_router)
+app.include_router(therapist_router)
