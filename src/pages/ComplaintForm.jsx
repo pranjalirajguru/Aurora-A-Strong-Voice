@@ -21,7 +21,7 @@ export default function ComplaintForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.post("/complaints/create", form);
+      const res = await API.post("/api/complaints/create", form);
       setMessage("✅ Complaint submitted successfully!");
       setForm({
         victim_name: "",
