@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import API from "../services/api";
 import { useNavigate } from "react-router-dom";
 
+
 export default function ComplaintForm() {
   const navigate = useNavigate();
 
@@ -18,21 +19,45 @@ export default function ComplaintForm() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await API.post("/api/complaints/create", form);
-      setMessage("✅ Complaint submitted successfully!");
-      setForm({
-        victim_name: "",
-        complaint_title: "",
-        culprit_name: "",
-        incident_description: "",
-      });
-    } catch (error) {
-      setMessage("❌ " + (error.response?.data?.detail || "Submission failed"));
-    }
-  };
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    // 🔹 1. Save complaint to your backend (UNCHANGED)
+    const res = await API.post("/api/complaints/create", form);
+
+    // 🔹 2. Send same data to Web3Forms (ADDED)
+    const formData = new FormData();
+    formData.append("access_key", "64ef29de-4a17-4e19-9573-bcd74262a91a");
+
+    formData.append("Victim Name", form.victim_name);
+    formData.append("Complaint Title", form.complaint_title);
+    formData.append("Culprit Name", form.culprit_name);
+    formData.append("Incident Description", form.incident_description);
+
+    // 🔹 redirect URL (can change later)
+    formData.append("redirect", "http://localhost:5173/ComplaintSuccess");
+
+    await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+    });
+
+    // 🔹 UI success
+    setMessage("✅ Complaint submitted successfully!");
+
+    setForm({
+      victim_name: "",
+      complaint_title: "",
+      culprit_name: "",
+      incident_description: "",
+    });
+
+  } catch (error) {
+    setMessage("❌ " + (error.response?.data?.detail || "Submission failed"));
+  }
+};
+
 
   return (
     <motion.div
