@@ -186,13 +186,17 @@ Portfolio & GitHub Showcase
 
 🔮 Future Enhancements
 
-AI Avatar represnting therapist
+AI Avatar represnting therapist.
 
 Emergency SOS integration
 
 Voice-based AI interaction
 
 Multilingual support
+
+Secure complaint tracking dashboard
+
+Mobile application version
 
 👩‍💻 Developed By
 
@@ -203,7 +207,3 @@ Final Year Project
 📄 License
 
 This project is developed for educational and awareness purposes.
-
-Secure complaint tracking dashboard
-
-Mobile application version
