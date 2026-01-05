@@ -35,10 +35,7 @@ export default function ComplaintForm() {
     formData.append("Culprit Name", form.culprit_name);
     formData.append("Incident Description", form.incident_description);
 
-    // 🔹 redirect URL (can change later)
-    formData.append("redirect", "http://localhost:5173/ComplaintSuccess");
-
-    await fetch("https://api.web3forms.com/submit", {
+     await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       body: formData,
     });
